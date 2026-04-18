@@ -1,0 +1,8 @@
+templates:
+  - templates/**/*.yml
+  - templates/**/*.yaml
+  - nested/**/*.yml
+  - nested/**/*.yaml
+ignore_checks: []
+regions:
+  - ap-southeast-1

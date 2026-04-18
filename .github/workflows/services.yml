@@ -1,0 +1,16 @@
+name: services-placeholder
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'services/**'
+      - 'deploy/**'
+      - '.github/workflows/services.yml'
+
+jobs:
+  services-ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Placeholder
+        run: echo "TODO: add build, test, container scan, and deploy checks."

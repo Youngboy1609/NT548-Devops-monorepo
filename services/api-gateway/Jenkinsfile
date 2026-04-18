@@ -1,0 +1,2 @@
+// Placeholder Jenkinsfile for api-gateway.
+// TODO: add stages for checkout, build, test, scan, image push, and deploy.

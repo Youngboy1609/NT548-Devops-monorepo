@@ -1,0 +1,10 @@
+directory:
+  - infra/terraform
+  - infra/cloudformation
+quiet: false
+compact: true
+framework:
+  - terraform
+  - cloudformation
+soft_fail: true
+download_external_modules: false

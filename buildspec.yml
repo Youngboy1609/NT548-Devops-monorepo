@@ -1,0 +1,13 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "TODO: choose CodeBuild image and install project dependencies."
+  build:
+    commands:
+      - echo "TODO: route to terraform/cloudformation/services buildspec as needed."
+
+artifacts:
+  files:
+    - '**/*'

@@ -1,0 +1,9 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "TODO: install terraform and checkov."
+  build:
+    commands:
+      - echo "TODO: run terraform fmt, validate, and test commands."

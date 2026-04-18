@@ -1,0 +1,10 @@
+project:
+  name: nt548-cloudformation-skeleton
+  regions:
+    - ap-southeast-1
+
+tests:
+  placeholder:
+    template: templates/main.yaml
+    parameters:
+      EnvironmentName: dev

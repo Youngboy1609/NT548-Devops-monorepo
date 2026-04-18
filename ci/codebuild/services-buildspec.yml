@@ -1,0 +1,9 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "TODO: install service build/test dependencies."
+  build:
+    commands:
+      - echo "TODO: build microservices, run tests, and publish artifacts."

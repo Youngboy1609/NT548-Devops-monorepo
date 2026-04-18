@@ -1,0 +1,15 @@
+name: cloudformation-placeholder
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'infra/cloudformation/**'
+      - '.github/workflows/cloudformation.yml'
+
+jobs:
+  cloudformation-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Placeholder
+        run: echo "TODO: add cfn-lint, taskcat, and packaging flow."
