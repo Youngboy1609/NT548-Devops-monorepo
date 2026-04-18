@@ -2,9 +2,9 @@
 
 ## Role
 
-Template de copy khi nhom muon them service moi ma van giu conventions chung.
+Template to copy when the team adds a new service while keeping shared conventions.
 
 ## TODO
 
-- Copy thu muc nay thanh ten service moi.
-- Dien README, Dockerfile, Jenkinsfile, Sonar config, src/tests, va deploy manifests.
+- Copy this directory into a new service name.
+- Fill in the README, Dockerfile, Jenkinsfile, Sonar config, source/tests, and deploy manifests.

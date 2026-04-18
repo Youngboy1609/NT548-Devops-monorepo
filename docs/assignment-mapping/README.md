@@ -1,3 +1,3 @@
 # Assignment Mapping
 
-Thu muc nay dung de map yeu cau de bai vao cau truc repo.
+This directory maps assignment requirements to the repository structure.

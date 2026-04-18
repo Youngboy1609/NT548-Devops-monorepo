@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Quan ly EIP va NAT Gateway cho private subnet outbound access.
+Manage the Elastic IP and NAT Gateway for outbound access from private subnets.
 
 ## TODO
 

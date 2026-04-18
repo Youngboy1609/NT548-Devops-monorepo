@@ -1,6 +1,6 @@
 # Services
 
-Dat ten service theo nghiep vu, khong dat theo cong nghe.
+Services are named by business responsibility, not by implementation technology.
 
 ## Seeded services
 
@@ -12,5 +12,5 @@ Dat ten service theo nghiep vu, khong dat theo cong nghe.
 
 ## TODO
 
-- Xac nhan stack cong nghe cho tung service.
-- Chot hop dong API, data flow va deployment model.
+- Confirm the technology stack for each service.
+- Finalize API contracts, data flow, and the deployment model.

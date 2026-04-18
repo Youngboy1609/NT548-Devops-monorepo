@@ -2,5 +2,5 @@
 
 ## TODO
 
-- Naming rules cho branch, files, resources, tags.
-- Quy uoc README, ownership, va review process.
+- Define naming rules for branches, files, resources, and tags.
+- Define README, ownership, and review process conventions.

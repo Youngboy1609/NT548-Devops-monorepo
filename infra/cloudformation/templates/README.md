@@ -9,4 +9,4 @@
 
 ## TODO
 
-- Chot nested stack boundaries va outputs/imports.
+- Finalize nested stack boundaries and outputs/imports.

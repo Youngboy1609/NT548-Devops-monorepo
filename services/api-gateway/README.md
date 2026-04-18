@@ -2,14 +2,14 @@
 
 ## Role
 
-Diem vao chung cho client requests, routing, auth forwarding, va observability hooks.
+Shared entry point for client requests, routing, auth forwarding, and observability hooks.
 
 ## Owner suggestion
 
-Mot thanh vien phu trach gateway, contracts, va ingress.
+One team member should own the gateway, contracts, and ingress-related work.
 
 ## TODO
 
-- Chon framework va runtime.
-- Mo ta API surface, auth strategy, va health endpoints.
-- Dien Dockerfile, Jenkinsfile, Sonar config, src, tests, va manifests.
+- Choose the framework and runtime.
+- Describe the API surface, auth strategy, and health endpoints.
+- Fill in the Dockerfile, Jenkinsfile, Sonar config, source tree, tests, and manifests.

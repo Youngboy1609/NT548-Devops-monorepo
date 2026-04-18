@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Tach security groups cho public EC2 va private EC2.
+Separate security groups for the public EC2 instance and the private EC2 instance.
 
 ## TODO
 

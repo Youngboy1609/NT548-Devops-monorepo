@@ -2,10 +2,10 @@
 
 ## Working rules
 
-- Tao branch rieng cho tung task.
-- Mo pull request som, merge muon.
-- Khong commit secrets, state files, artifacts, hay binary.
-- Cap nhat README/TODO cua phan minh phu trach truoc khi them implementation.
+- Create a separate branch for each task.
+- Open pull requests early and merge later.
+- Do not commit secrets, state files, build artifacts, or binaries.
+- Update the README/TODO file of the area you own before adding implementation.
 
 ## Suggested ownership split
 

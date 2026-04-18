@@ -2,4 +2,4 @@
 
 ## TODO
 
-- Ghi conventions ve parameters, outputs, exports, nested stacks.
+- Document conventions for parameters, outputs, exports, and nested stacks.

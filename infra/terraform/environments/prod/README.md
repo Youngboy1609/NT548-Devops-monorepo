@@ -4,4 +4,4 @@ Placeholder environment.
 
 ## TODO
 
-- Chi mo rong khi nhom can demo multi-environment.
+- Expand this only if the team decides to demonstrate a multi-environment setup.

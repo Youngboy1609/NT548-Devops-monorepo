@@ -10,4 +10,4 @@ No active security tooling yet.
 
 ## TODO
 
-- Chot tool ownership va cach tich hop vao pipeline.
+- Finalize tool ownership and how each scanner will be integrated into the pipeline.

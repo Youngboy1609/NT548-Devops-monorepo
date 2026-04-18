@@ -2,13 +2,13 @@
 
 ## Role
 
-Quan ly danh tinh, xac thuc, va phan quyen co ban cho he thong.
+Manage identity, authentication, and basic authorization for the system.
 
 ## Owner suggestion
 
-Mot thanh vien phu trach auth flow va secret management.
+One team member should own the auth flow and secret management.
 
 ## TODO
 
-- Chot auth model va user store.
-- Mo ta APIs, token strategy, va dependency voi gateway.
+- Finalize the auth model and user store.
+- Describe the APIs, token strategy, and dependency on the gateway.

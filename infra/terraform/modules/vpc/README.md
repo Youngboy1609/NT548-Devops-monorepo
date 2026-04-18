@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Khoi tao VPC core cho toan bo bai tap.
+Provision the core VPC for the full assignment scope.
 
 ## TODO
 

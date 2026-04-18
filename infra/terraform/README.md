@@ -1,6 +1,6 @@
 # Terraform Skeleton
 
-Phan nay chua root modules, environments, examples, docs va tests cho bai 1 va bai 2.
+This area contains root modules, environments, examples, docs, and test placeholders for Assignments 01 and 02.
 
 ## Scope
 
@@ -13,6 +13,6 @@ Phan nay chua root modules, environments, examples, docs va tests cho bai 1 va b
 
 ## TODO
 
-- Chot remote state strategy.
-- Dien input/output contract cho tung module.
-- Bo sung validation va tests.
+- Finalize the remote state strategy.
+- Define the input/output contract for each module.
+- Add validation and tests.

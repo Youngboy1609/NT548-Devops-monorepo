@@ -4,4 +4,4 @@ Placeholder environment.
 
 ## TODO
 
-- Clone conventions tu `dev` sau khi root stack on dinh.
+- Mirror conventions from `dev` once the root stack is stable.

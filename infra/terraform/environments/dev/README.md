@@ -4,5 +4,5 @@ No implementation yet.
 
 ## TODO
 
-- Goi cac module can thiet cho bai 1.
-- Chot naming, tags, cidr va instance profile cho dev.
+- Wire up the modules required for Assignment 01.
+- Finalize naming, tags, CIDR ranges, and instance profile choices for development.

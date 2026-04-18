@@ -4,5 +4,5 @@ No detailed docs yet.
 
 ## TODO
 
-- Mo ta module graph.
-- Ghi conventions ve variable names, tags, outputs.
+- Document the module graph.
+- Document conventions for variable names, tags, and outputs.

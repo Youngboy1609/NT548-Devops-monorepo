@@ -1,7 +1,7 @@
 # Repository-level Kubernetes Base
 
-Thu muc nay danh cho cac tai nguyen dung chung cap repo, vi du namespace, ingress, config dung chung, hoac tooling manifests.
+This directory is reserved for repository-wide shared resources such as namespaces, ingress objects, shared config, or tooling manifests.
 
 ## TODO
 
-- Chot phan nao nam trong `deploy/k8s` chung va phan nao nam trong tung service.
+- Decide which resources should live in shared `deploy/k8s` versus inside each individual service.

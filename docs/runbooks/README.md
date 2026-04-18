@@ -2,6 +2,6 @@
 
 ## TODO
 
-- Huong dan local setup.
-- Huong dan deploy.
-- Huong dan rollback va cleanup.
+- Write the local setup guide.
+- Write the deployment guide.
+- Write the rollback and cleanup guide.

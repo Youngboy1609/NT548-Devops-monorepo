@@ -2,5 +2,5 @@
 
 ## TODO
 
-- Xac dinh co dung Snyk hay khong.
-- Neu dung, them policy va cach cap token an toan.
+- Decide whether the team will use Snyk.
+- If yes, add policy guidance and a safe token management approach.

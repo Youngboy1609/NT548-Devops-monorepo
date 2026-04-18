@@ -2,13 +2,13 @@
 
 ## Role
 
-Quan ly order workflow de demo giao tiep giua cac service.
+Manage the order workflow to demonstrate communication between services.
 
 ## Owner suggestion
 
-Mot thanh vien phu trach business flow, async options, va integration tests.
+One team member should own the business flow, async options, and integration tests.
 
 ## TODO
 
-- Chot event flow hoac sync flow.
-- Mo ta dependencies voi auth va catalog.
+- Finalize whether the flow is event-driven or synchronous.
+- Describe dependencies on auth and catalog.

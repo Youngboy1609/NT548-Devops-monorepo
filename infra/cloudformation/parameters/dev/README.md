@@ -2,4 +2,4 @@
 
 ## TODO
 
-- Khai bao parameter values cho dev stack.
+- Define parameter values for the development stack.

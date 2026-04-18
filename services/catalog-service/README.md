@@ -2,13 +2,13 @@
 
 ## Role
 
-Quan ly danh muc san pham va metadata can thiet cho demo microservices.
+Manage the product catalog and the metadata required for the microservices demo.
 
 ## Owner suggestion
 
-Mot thanh vien phu trach service nghiep vu co CRUD va docs API.
+One team member should own this business service, its CRUD flow, and API documentation.
 
 ## TODO
 
-- Chot du lieu mau, endpoints, va testing approach.
-- Mo ta interaction voi `order-service`.
+- Finalize sample data, endpoints, and the testing approach.
+- Describe the interaction with `order-service`.

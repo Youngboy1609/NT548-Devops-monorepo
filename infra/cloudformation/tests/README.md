@@ -2,5 +2,5 @@
 
 ## TODO
 
-- Chot test matrix cho cfn-lint va taskcat.
-- Mo ta cach chay local truoc khi day len pipeline.
+- Finalize the test matrix for cfn-lint and taskcat.
+- Document how to run checks locally before pushing to the pipeline.

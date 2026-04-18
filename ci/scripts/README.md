@@ -4,5 +4,5 @@ No scripts yet.
 
 ## TODO
 
-- Them helper scripts cho lint, validate, package, deploy.
-- Tach script theo tool neu command trong workflow/buildspec bat dau dai.
+- Add helper scripts for lint, validate, package, and deploy flows.
+- Split scripts by tool once workflow or buildspec commands start getting too long.

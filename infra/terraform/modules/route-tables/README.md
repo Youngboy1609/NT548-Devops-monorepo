@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Quan ly public/private route tables va associations.
+Manage public and private route tables and their associations.
 
 ## TODO
 

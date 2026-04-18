@@ -2,4 +2,4 @@
 
 ## TODO
 
-- Tach reusable nested templates khi main stack bat dau dai.
+- Split reusable nested templates once the main stack becomes too large.

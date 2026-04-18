@@ -2,5 +2,5 @@
 
 ## TODO
 
-- Chon cach test: `terraform validate`, `terraform test`, hoac wrapper scripts.
-- Dinh nghia regression cases cho network va EC2 modules.
+- Choose the test approach: `terraform validate`, `terraform test`, or wrapper scripts.
+- Define regression cases for the network and EC2 modules.
