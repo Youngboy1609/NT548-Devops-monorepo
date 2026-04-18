@@ -1,31 +1,33 @@
 # NT548 DevOps Monorepo Skeleton
 
-Khung monorepo chung cho bai tap thuc hanh 01 va 02 mon NT548.
+This repository is a shared monorepo skeleton for NT548 Practical Assignments 01 and 02.
 
-## Muc tieu
+It is intentionally scaffold-only. The goal is to give the team a clean starting point for collaboration, ownership split, and implementation planning before adding real infrastructure code, service code, or deployment logic.
 
-- Bai 1: dat nen tang IaC voi Terraform va CloudFormation cho AWS network va EC2.
-- Bai 2: mo rong voi GitHub Actions, AWS CodeBuild, AWS CodePipeline, Jenkins, Docker, Kubernetes va cac cong cu scan/lint.
-- Repo nay chi chua skeleton de chia viec, chua chua implementation thuc te.
+## Objectives
 
-## Nguyen tac to chuc
+- Assignment 01: build the AWS infrastructure foundation with Terraform and CloudFormation for VPC, subnets, route tables, NAT Gateway, security groups, and EC2.
+- Assignment 02: extend the same foundation with GitHub Actions, AWS CodeBuild, AWS CodePipeline, Jenkins, Docker, Kubernetes, and security/quality tooling.
+- Keep everything in one capability-first monorepo instead of splitting the work into separate repositories.
 
-- `infra/`: phan IaC va testing/linting lien quan.
-- `services/`: microservices dat ten theo nghiep vu.
-- `ci/`: script va buildspec cho cac he thong CI/CD.
-- `deploy/`: manifest va overlays dung chung cap repo.
-- `security/`: config placeholder cho cac cong cu security scan.
-- `docs/`: kien truc, conventions, runbooks, mapping bai tap.
-- `reports/`: khung bao cao nop bai.
+## Repository Principles
 
-## Khoi tao nhom
+- `infra/`: infrastructure as code, validation, and infrastructure-related test scaffolding.
+- `services/`: business-oriented microservices such as `api-gateway`, `auth-service`, `catalog-service`, and `order-service`.
+- `ci/`: shared CI/CD scripts and CodeBuild buildspec files.
+- `deploy/`: repository-level Kubernetes base and environment overlays.
+- `security/`: placeholders for Checkov, Trivy, Snyk, and related security tooling.
+- `docs/`: architecture notes, conventions, runbooks, and assignment mapping.
+- `reports/`: placeholders for assignment reports, screenshots, and submission artifacts.
 
-1. Doc `docs/assignment-mapping/nt548-assignment-map.md`.
-2. Chon ownership theo module/service.
-3. Dien TODO trong README cua thu muc minh phu trach.
-4. Chi them implementation sau khi thong nhat conventions.
+## Team Onboarding
 
-## Cay thu muc chinh
+1. Read `docs/assignment-mapping/nt548-assignment-map.md`.
+2. Split ownership by module or service before implementation starts.
+3. Fill in the TODO sections inside the README files of the area you own.
+4. Add real implementation only after the team agrees on conventions, boundaries, and responsibilities.
+
+## Main Repository Layout
 
 ```text
 .
