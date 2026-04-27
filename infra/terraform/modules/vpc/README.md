@@ -1,10 +1,11 @@
 # Terraform Module: vpc
 
-## Purpose
+## Muc dich
 
-Provision the core VPC for the full assignment scope.
+Tao VPC, Internet Gateway va default security group.
 
-## TODO
+## Tai nguyen
 
-- Variables: cidr block, tags, dns settings.
-- Outputs: vpc id, cidr, default security group id.
+- `aws_vpc`
+- `aws_internet_gateway`
+- `aws_default_security_group`

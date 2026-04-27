@@ -1,10 +1,10 @@
 # Terraform Module: route-tables
 
-## Purpose
+## Muc dich
 
-Manage public and private route tables and their associations.
+Tao route table cho public subnet va private subnet.
 
-## TODO
+## Route
 
-- Variables: vpc id, subnet ids, internet gateway id, nat gateway id.
-- Outputs: route table ids.
+- Public route table: `0.0.0.0/0` route toi Internet Gateway.
+- Private route table: `0.0.0.0/0` route toi NAT Gateway.

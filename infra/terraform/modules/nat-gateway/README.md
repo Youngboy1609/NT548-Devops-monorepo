@@ -1,10 +1,9 @@
 # Terraform Module: nat-gateway
 
-## Purpose
+## Muc dich
 
-Manage the Elastic IP and NAT Gateway for outbound access from private subnets.
+Tao 1 Elastic IP va 1 NAT Gateway trong public subnet.
 
-## TODO
+## Tai nguyen
 
-- Variables: public subnet id, allocation strategy, tags.
-- Outputs: nat gateway id, elastic ip allocation id.
+Private route table dung NAT Gateway nay de cac tai nguyen trong private subnet co the di ra Internet.

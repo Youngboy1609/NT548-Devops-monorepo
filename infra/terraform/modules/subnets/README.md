@@ -1,10 +1,10 @@
 # Terraform Module: subnets
 
-## Purpose
+## Muc dich
 
-Manage public and private subnets across availability zones.
+Tao 1 public subnet va 1 private subnet trong VPC.
 
-## TODO
+## Tai nguyen
 
-- Variables: vpc id, subnet cidrs, az mapping, tags.
-- Outputs: subnet ids for public and private tiers.
+- Public subnet: `map_public_ip_on_launch = true`
+- Private subnet: `map_public_ip_on_launch = false`
