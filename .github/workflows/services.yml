@@ -13,4 +13,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Placeholder
-        run: echo "TODO: add build, test, container scan, and deploy checks."
+        run: 'echo "TODO: add build, test, container scan, and deploy checks."'

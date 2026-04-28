@@ -1,0 +1,14 @@
+vpc_id                    = "vpc-xxxxxxxx"
+public_subnet_id          = "subnet-xxxxxxxx"
+private_subnet_id         = "subnet-xxxxxxxx"
+internet_gateway_id       = "igw-xxxxxxxx"
+nat_gateway_id            = "nat-xxxxxxxx"
+public_route_table_id     = "rtb-xxxxxxxx"
+private_route_table_id    = "rtb-xxxxxxxx"
+default_security_group_id = "sg-xxxxxxxx"
+
+tags = {
+  Project     = "nt548"
+  Environment = "dev"
+  ManagedBy   = "terraform"
+}

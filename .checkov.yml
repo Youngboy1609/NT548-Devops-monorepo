@@ -6,5 +6,5 @@ compact: true
 framework:
   - terraform
   - cloudformation
-soft_fail: true
-download_external_modules: false
+soft-fail: true
+download-external-modules: false

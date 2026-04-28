@@ -9,9 +9,8 @@
 
 ## Suggested ownership split
 
-- Member 1: Terraform + Checkov + GitHub Actions.
-- Member 2: CloudFormation + cfn-lint + taskcat + CodeBuild/CodePipeline.
-- Member 3: Microservices + Docker + Jenkins + Kubernetes + SonarQube.
+- Member 1: Assignment 01 network foundation, Terraform/CloudFormation network, GitHub Actions, and Checkov.
+- Member 2: Assignment 01 security/compute, CloudFormation packaging and validation, CodeBuild/CodePipeline, Jenkins, Docker, Kubernetes, and SonarQube.
 
 ## Commit style
 

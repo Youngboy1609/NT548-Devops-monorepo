@@ -1,5 +1,5 @@
 # CloudFormation Nested Stacks
 
-## TODO
+Assignment 01 keeps the nested stack source files in `infra/cloudformation/templates/` so they can be packaged together by `aws cloudformation package`.
 
-- Split reusable nested templates once the main stack becomes too large.
+Keep this directory reserved for future reusable nested stacks if Assignment 02 needs to extract shared CI/CD or service-level templates.

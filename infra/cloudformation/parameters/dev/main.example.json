@@ -1,0 +1,42 @@
+[
+  {
+    "ParameterKey": "VpcCidr",
+    "ParameterValue": "10.0.0.0/16"
+  },
+  {
+    "ParameterKey": "PublicSubnetCidr",
+    "ParameterValue": "10.0.1.0/24"
+  },
+  {
+    "ParameterKey": "PrivateSubnetCidr",
+    "ParameterValue": "10.0.101.0/24"
+  },
+  {
+    "ParameterKey": "AvailabilityZone",
+    "ParameterValue": "ap-southeast-1a"
+  },
+  {
+    "ParameterKey": "AllowedSshCidr",
+    "ParameterValue": "REPLACE_WITH_ADMIN_PUBLIC_IP/32"
+  },
+  {
+    "ParameterKey": "KeyName",
+    "ParameterValue": "REPLACE_ME"
+  },
+  {
+    "ParameterKey": "ImageId",
+    "ParameterValue": "ami-REPLACE_ME"
+  },
+  {
+    "ParameterKey": "InstanceType",
+    "ParameterValue": "t2.micro"
+  },
+  {
+    "ParameterKey": "ProjectName",
+    "ParameterValue": "nt548"
+  },
+  {
+    "ParameterKey": "EnvironmentName",
+    "ParameterValue": "dev"
+  }
+]

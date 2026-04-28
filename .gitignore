@@ -14,14 +14,21 @@ Thumbs.db
 .terraform.lock.hcl
 *.tfstate
 *.tfstate.*
+infra/terraform/environments/**/local.auto.tfvars
 crash.log
 override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
 
+# Credential exports
+*_accessKeys.csv
+*.pem
+
 # CloudFormation / taskcat artifacts
 .taskcat_outputs/
+infra/cloudformation/parameters/**/*.local.json
+infra/cloudformation/templates/packaged-*.yaml
 
 # Node / package managers
 node_modules/
@@ -43,5 +50,4 @@ out/
 
 # Containers / local scans
 .scannerwork/
-reports/
 tmp/

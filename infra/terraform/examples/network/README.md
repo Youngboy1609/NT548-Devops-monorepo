@@ -1,6 +1,6 @@
-# Vi du network
+# Terraform Example: network
 
-Vi du nay tao network dung theo yeu cau de bai:
+This example creates the Assignment 01 network foundation:
 
 - 1 VPC
 - 1 public subnet
@@ -10,12 +10,13 @@ Vi du nay tao network dung theo yeu cau de bai:
 - 1 public route table
 - 1 private route table
 
-## Kiem tra
+## What to verify
 
-- Public subnet di Internet: `0.0.0.0/0` trong public route table tro toi Internet Gateway.
-- Private subnet di ra ngoai: `0.0.0.0/0` trong private route table tro toi NAT Gateway.
+- The public route table sends `0.0.0.0/0` traffic to the Internet Gateway.
+- The private route table sends `0.0.0.0/0` traffic to the NAT Gateway.
+- The public subnet auto-assigns public IP addresses and the private subnet does not.
 
-## Lenh chay
+## Commands
 
 ```powershell
 terraform init

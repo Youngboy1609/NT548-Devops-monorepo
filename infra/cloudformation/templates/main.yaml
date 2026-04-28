@@ -1,1 +1,126 @@
-# TODO: root CloudFormation template placeholder.
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Deploy the full Assignment 01 infrastructure stack with nested CloudFormation templates.
+
+Parameters:
+  VpcCidr:
+    Type: String
+    Default: 10.0.0.0/16
+    Description: CIDR block for the Assignment 01 VPC.
+  PublicSubnetCidr:
+    Type: String
+    Default: 10.0.1.0/24
+    Description: CIDR block for the public subnet.
+  PrivateSubnetCidr:
+    Type: String
+    Default: 10.0.101.0/24
+    Description: CIDR block for the private subnet.
+  AvailabilityZone:
+    Type: String
+    Default: ap-southeast-1a
+    Description: Availability Zone used by both subnets.
+  AllowedSshCidr:
+    Type: String
+    Description: Admin CIDR allowed to SSH into the public EC2 instance.
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Description: Existing EC2 key pair used to access the instances.
+  ImageId:
+    Type: AWS::EC2::Image::Id
+    Description: AMI ID used by both EC2 instances.
+  InstanceType:
+    Type: String
+    Default: t2.micro
+    Description: EC2 instance type used by both instances.
+  ProjectName:
+    Type: String
+    Default: nt548
+    Description: Project tag applied to all resources.
+  EnvironmentName:
+    Type: String
+    Default: dev
+    Description: Environment tag applied to all resources.
+
+Resources:
+  NetworkStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: ./network.yaml
+      Parameters:
+        VpcCidr: !Ref VpcCidr
+        PublicSubnetCidr: !Ref PublicSubnetCidr
+        PrivateSubnetCidr: !Ref PrivateSubnetCidr
+        AvailabilityZone: !Ref AvailabilityZone
+        ProjectName: !Ref ProjectName
+        EnvironmentName: !Ref EnvironmentName
+
+  SecurityStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: ./security.yaml
+      Parameters:
+        VpcId: !GetAtt NetworkStack.Outputs.VpcId
+        AllowedSshCidr: !Ref AllowedSshCidr
+        ProjectName: !Ref ProjectName
+        EnvironmentName: !Ref EnvironmentName
+
+  ComputeStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: ./compute.yaml
+      Parameters:
+        PublicSubnetId: !GetAtt NetworkStack.Outputs.PublicSubnetId
+        PrivateSubnetId: !GetAtt NetworkStack.Outputs.PrivateSubnetId
+        PublicSecurityGroupId: !GetAtt SecurityStack.Outputs.PublicSecurityGroupId
+        PrivateSecurityGroupId: !GetAtt SecurityStack.Outputs.PrivateSecurityGroupId
+        KeyName: !Ref KeyName
+        ImageId: !Ref ImageId
+        InstanceType: !Ref InstanceType
+        ProjectName: !Ref ProjectName
+        EnvironmentName: !Ref EnvironmentName
+
+Outputs:
+  VpcId:
+    Description: Created VPC ID.
+    Value: !GetAtt NetworkStack.Outputs.VpcId
+  DefaultSecurityGroupId:
+    Description: Default security group ID created with the VPC.
+    Value: !GetAtt NetworkStack.Outputs.DefaultSecurityGroupId
+  InternetGatewayId:
+    Description: Internet Gateway ID attached to the VPC.
+    Value: !GetAtt NetworkStack.Outputs.InternetGatewayId
+  NatGatewayId:
+    Description: NAT Gateway ID used by the private route table.
+    Value: !GetAtt NetworkStack.Outputs.NatGatewayId
+  PublicSubnetId:
+    Description: Public subnet ID.
+    Value: !GetAtt NetworkStack.Outputs.PublicSubnetId
+  PrivateSubnetId:
+    Description: Private subnet ID.
+    Value: !GetAtt NetworkStack.Outputs.PrivateSubnetId
+  PublicRouteTableId:
+    Description: Public route table ID.
+    Value: !GetAtt NetworkStack.Outputs.PublicRouteTableId
+  PrivateRouteTableId:
+    Description: Private route table ID.
+    Value: !GetAtt NetworkStack.Outputs.PrivateRouteTableId
+  PublicSecurityGroupId:
+    Description: Security group ID for the public EC2 instance.
+    Value: !GetAtt SecurityStack.Outputs.PublicSecurityGroupId
+  PrivateSecurityGroupId:
+    Description: Security group ID for the private EC2 instance.
+    Value: !GetAtt SecurityStack.Outputs.PrivateSecurityGroupId
+  PublicInstanceId:
+    Description: EC2 instance ID for the public host.
+    Value: !GetAtt ComputeStack.Outputs.PublicInstanceId
+  PublicInstancePublicIp:
+    Description: Public IPv4 address of the public EC2 instance.
+    Value: !GetAtt ComputeStack.Outputs.PublicInstancePublicIp
+  PublicInstancePrivateIp:
+    Description: Private IPv4 address of the public EC2 instance.
+    Value: !GetAtt ComputeStack.Outputs.PublicInstancePrivateIp
+  PrivateInstanceId:
+    Description: EC2 instance ID for the private host.
+    Value: !GetAtt ComputeStack.Outputs.PrivateInstanceId
+  PrivateInstancePrivateIp:
+    Description: Private IPv4 address of the private EC2 instance.
+    Value: !GetAtt ComputeStack.Outputs.PrivateInstancePrivateIp

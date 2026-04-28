@@ -1,0 +1,13 @@
+# Assignment 01 intentionally exposes a public subnet and public bastion host
+# so SSH can be tested from an admin CIDR before hopping to the private host.
+AWS-0164
+
+# VPC flow logs are outside the Assignment 01 scope.
+AWS-0178
+
+# Assignment 01 instances need outbound access for package and connectivity tests.
+AWS-0104
+
+# Trivy currently flags the CloudFormation EC2 MetadataOptions block even though
+# cfn-lint and Checkov accept HttpTokens: required.
+AWS-0028

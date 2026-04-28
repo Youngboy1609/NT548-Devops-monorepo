@@ -1,8 +1,8 @@
-# NT548 DevOps Monorepo Skeleton
+# NT548 DevOps Monorepo
 
-This repository is a shared monorepo skeleton for NT548 Practical Assignments 01 and 02.
+This repository is a shared monorepo for NT548 Practical Assignments 01 and 02.
 
-It is intentionally scaffold-only. The goal is to give the team a clean starting point for collaboration, ownership split, and implementation planning before adding real infrastructure code, service code, or deployment logic.
+Assignment 01 now has concrete infrastructure code for Terraform and CloudFormation. Assignment 02 remains mostly scaffolded so the team can keep building on top of the same repository.
 
 ## Objectives
 
@@ -12,7 +12,7 @@ It is intentionally scaffold-only. The goal is to give the team a clean starting
 
 ## Repository Principles
 
-- `infra/`: infrastructure as code, validation, and infrastructure-related test scaffolding.
+- `infra/`: infrastructure as code, validation scripts, and infrastructure test cases.
 - `services/`: business-oriented microservices such as `api-gateway`, `auth-service`, `catalog-service`, and `order-service`.
 - `ci/`: shared CI/CD scripts and CodeBuild buildspec files.
 - `deploy/`: repository-level Kubernetes base and environment overlays.
@@ -20,12 +20,20 @@ It is intentionally scaffold-only. The goal is to give the team a clean starting
 - `docs/`: architecture notes, conventions, runbooks, and assignment mapping.
 - `reports/`: placeholders for assignment reports, screenshots, and submission artifacts.
 
+## Assignment 01 Quick Start
+
+1. Copy `.env.example` to `.env` and fill in AWS credentials plus `TF_VAR_allowed_ssh_cidr`.
+2. Deploy or update the Terraform network stack in `infra/terraform/examples/network`.
+3. Copy the resulting network IDs into `infra/terraform/environments/dev/local.auto.tfvars`.
+4. Fill `TF_VAR_key_name` and `TF_VAR_image_id` once the AWS owner provides them.
+5. Run the Terraform and CloudFormation checks under `infra/terraform/tests/` and `infra/cloudformation/tests/`.
+
 ## Team Onboarding
 
 1. Read `docs/assignment-mapping/nt548-assignment-map.md`.
-2. Split ownership by module or service before implementation starts.
-3. Fill in the TODO sections inside the README files of the area you own.
-4. Add real implementation only after the team agrees on conventions, boundaries, and responsibilities.
+2. Split ownership by infrastructure domain or service before implementation starts.
+3. Keep local secrets in `.env`, `local.auto.tfvars`, and `*.local.json` files only.
+4. Update the README or report checklist of the area you own when implementation changes.
 
 ## Main Repository Layout
 

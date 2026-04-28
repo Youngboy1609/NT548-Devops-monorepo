@@ -1,0 +1,108 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Create Assignment 01 EC2 instances on top of an existing VPC and subnets.
+
+Parameters:
+  PublicSubnetId:
+    Type: AWS::EC2::Subnet::Id
+    Description: Existing public subnet ID.
+  PrivateSubnetId:
+    Type: AWS::EC2::Subnet::Id
+    Description: Existing private subnet ID.
+  PublicSecurityGroupId:
+    Type: AWS::EC2::SecurityGroup::Id
+    Description: Security group ID attached to the public EC2 instance.
+  PrivateSecurityGroupId:
+    Type: AWS::EC2::SecurityGroup::Id
+    Description: Security group ID attached to the private EC2 instance.
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Description: Existing EC2 key pair used to access the instances.
+  ImageId:
+    Type: AWS::EC2::Image::Id
+    Description: AMI ID used by both EC2 instances.
+  InstanceType:
+    Type: String
+    Default: t2.micro
+    Description: EC2 instance type used by both instances.
+  ProjectName:
+    Type: String
+    Default: nt548
+    Description: Project tag applied to all resources.
+  EnvironmentName:
+    Type: String
+    Default: dev
+    Description: Environment tag applied to all resources.
+
+Resources:
+  PublicEc2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref ImageId
+      InstanceType: !Ref InstanceType
+      KeyName: !Ref KeyName
+      MetadataOptions:
+        HttpTokens: required
+      BlockDeviceMappings:
+        - DeviceName: /dev/xvda
+          Ebs:
+            Encrypted: true
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: true
+          DeviceIndex: "0"
+          GroupSet:
+            - !Ref PublicSecurityGroupId
+          SubnetId: !Ref PublicSubnetId
+      Tags:
+        - Key: Name
+          Value: !Sub '${ProjectName}-${EnvironmentName}-public-ec2'
+        - Key: Project
+          Value: !Ref ProjectName
+        - Key: Environment
+          Value: !Ref EnvironmentName
+        - Key: ManagedBy
+          Value: cloudformation
+
+  PrivateEc2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref ImageId
+      InstanceType: !Ref InstanceType
+      KeyName: !Ref KeyName
+      MetadataOptions:
+        HttpTokens: required
+      BlockDeviceMappings:
+        - DeviceName: /dev/xvda
+          Ebs:
+            Encrypted: true
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: false
+          DeviceIndex: "0"
+          GroupSet:
+            - !Ref PrivateSecurityGroupId
+          SubnetId: !Ref PrivateSubnetId
+      Tags:
+        - Key: Name
+          Value: !Sub '${ProjectName}-${EnvironmentName}-private-ec2'
+        - Key: Project
+          Value: !Ref ProjectName
+        - Key: Environment
+          Value: !Ref EnvironmentName
+        - Key: ManagedBy
+          Value: cloudformation
+
+Outputs:
+  PublicInstanceId:
+    Description: EC2 instance ID for the public host.
+    Value: !Ref PublicEc2Instance
+  PublicInstancePublicIp:
+    Description: Public IPv4 address of the public EC2 instance.
+    Value: !GetAtt PublicEc2Instance.PublicIp
+  PublicInstancePrivateIp:
+    Description: Private IPv4 address of the public EC2 instance.
+    Value: !GetAtt PublicEc2Instance.PrivateIp
+  PrivateInstanceId:
+    Description: EC2 instance ID for the private host.
+    Value: !Ref PrivateEc2Instance
+  PrivateInstancePrivateIp:
+    Description: Private IPv4 address of the private EC2 instance.
+    Value: !GetAtt PrivateEc2Instance.PrivateIp

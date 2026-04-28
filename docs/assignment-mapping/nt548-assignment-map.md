@@ -15,8 +15,7 @@
 - `security/`: config placeholders for Checkov, Trivy, and Snyk.
 - `reports/bai2/`: report files, supporting screenshots, and result notes.
 
-## Suggested member split
+## Suggested 2-member split
 
-- Member 1: Terraform + GitHub Actions + Checkov
-- Member 2: CloudFormation + CodeBuild + CodePipeline + taskcat/cfn-lint
-- Member 3: Microservices + Jenkins + Docker + Kubernetes + SonarQube
+- Member 1: Assignment 01 network foundation, Terraform/CloudFormation network, GitHub Actions, and Checkov.
+- Member 2: Assignment 01 security/compute, CloudFormation packaging and validation, CodeBuild/CodePipeline, Jenkins, Docker, Kubernetes, and SonarQube.

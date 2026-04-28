@@ -1,10 +1,16 @@
 project:
-  name: nt548-cloudformation-skeleton
+  name: nt548-cloudformation-lint-placeholder
   regions:
     - ap-southeast-1
 
+# This file is intentionally kept as a lint placeholder.
+# Do not use `taskcat test run` from this config until real, non-secret
+# parameter values and S3 packaging are added for nested templates.
 tests:
   placeholder:
     template: templates/main.yaml
     parameters:
+      AllowedSshCidr: REPLACE_WITH_ADMIN_PUBLIC_IP/32
+      KeyName: REPLACE_WITH_EC2_KEY_PAIR_NAME
+      ImageId: ami-REPLACE_ME
       EnvironmentName: dev

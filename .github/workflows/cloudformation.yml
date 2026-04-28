@@ -12,4 +12,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Placeholder
-        run: echo "TODO: add cfn-lint, taskcat, and packaging flow."
+        run: 'echo "TODO: add cfn-lint, taskcat, and packaging flow."'
