@@ -32,3 +32,9 @@
 - Final Word or PDF report
 - supporting screenshots
 - final README instructions in the repository
+
+## Git policy
+
+- Keep generated report files local: `*.pdf`, `*.docx`, exported `*.html`, and screenshot evidence are ignored by Git.
+- Commit only this checklist, source code, scripts, and documentation needed to reproduce the deployment.
+- If evidence must be shared with the team, share the local zip/PDF directly instead of pushing it to GitHub.

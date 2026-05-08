@@ -18,7 +18,7 @@ Assignment 01 now has concrete infrastructure code for Terraform and CloudFormat
 - `deploy/`: repository-level Kubernetes base and environment overlays.
 - `security/`: placeholders for Checkov, Trivy, Snyk, and related security tooling.
 - `docs/`: architecture notes, conventions, runbooks, and assignment mapping.
-- `reports/`: placeholders for assignment reports, screenshots, and submission artifacts.
+- `reports/`: report checklists and submission notes. Generated report files, screenshots, and evidence exports are local-only and ignored by Git.
 
 ## Assignment 01 Quick Start
 
@@ -34,6 +34,7 @@ Assignment 01 now has concrete infrastructure code for Terraform and CloudFormat
 2. Split ownership by infrastructure domain or service before implementation starts.
 3. Keep local secrets in `.env`, `local.auto.tfvars`, and `*.local.json` files only.
 4. Update the README or report checklist of the area you own when implementation changes.
+5. Do not commit generated reports or evidence files such as PDFs, DOCX files, screenshots, or exported HTML.
 
 ## Main Repository Layout
 

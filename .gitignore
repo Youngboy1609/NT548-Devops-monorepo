@@ -30,6 +30,12 @@ override.tf.json
 infra/cloudformation/parameters/**/*.local.json
 infra/cloudformation/templates/packaged-*.yaml
 
+# Local report exports and evidence
+reports/bai*/evidence/
+reports/bai*/**/*.pdf
+reports/bai*/**/*.docx
+reports/bai*/**/*.html
+
 # Node / package managers
 node_modules/
 dist/
