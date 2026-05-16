@@ -1,7 +1,10 @@
-# Repository-level Kubernetes Base
+# Kubernetes Base
 
-This directory is reserved for repository-wide shared resources such as namespaces, ingress objects, shared config, or tooling manifests.
+Reusable manifests for the Lab 2 microservices:
 
-## TODO
+- `api-gateway`
+- `auth-service`
+- `catalog-service`
+- `order-service`
 
-- Decide which resources should live in shared `deploy/k8s` versus inside each individual service.
+The base creates namespace `nt548-lab2`, one shared ConfigMap, one Deployment, and one ClusterIP Service per microservice. Use overlays for environment-specific image tags or settings.

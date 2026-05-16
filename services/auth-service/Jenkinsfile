@@ -1,2 +1,11 @@
-// Placeholder Jenkinsfile for auth-service.
-// TODO: add CI/CD stages and quality gates.
+pipeline {
+  agent any
+
+  stages {
+    stage('Use Root Pipeline') {
+      steps {
+        echo 'Run the repository root Jenkinsfile for the full Lab 2 pipeline.'
+      }
+    }
+  }
+}

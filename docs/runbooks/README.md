@@ -1,7 +1,3 @@
 # Runbooks
 
-## TODO
-
-- Write the local setup guide.
-- Write the deployment guide.
-- Write the rollback and cleanup guide.
+- `lab2-person2-deploy.md`: deploy/test handoff guide for Assignment 02.

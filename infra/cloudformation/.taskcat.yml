@@ -1,16 +1,17 @@
 project:
-  name: nt548-cloudformation-lint-placeholder
+  name: nt548-lab2-cloudformation
   regions:
     - ap-southeast-1
 
-# This file is intentionally kept as a lint placeholder.
-# Do not use `taskcat test run` from this config until real, non-secret
-# parameter values and S3 packaging are added for nested templates.
+# Use `taskcat lint` for CI. Person 2 can create a local, untracked
+# deployment config when real key pair and AMI choices are finalized.
 tests:
-  placeholder:
+  main:
     template: templates/main.yaml
     parameters:
-      AllowedSshCidr: REPLACE_WITH_ADMIN_PUBLIC_IP/32
-      KeyName: REPLACE_WITH_EC2_KEY_PAIR_NAME
-      ImageId: ami-REPLACE_ME
+      AllowedSshCidr: 203.0.113.10/32
+      KeyName: taskcat-placeholder-key
+      ImageId: ami-03c3282f979a6a9b0
+      InstanceType: t2.micro
+      ProjectName: nt548
       EnvironmentName: dev

@@ -1,2 +1,8 @@
-# Placeholder Dockerfile for service-template.
-# TODO: replace with real build and runtime steps.
+FROM node:20-alpine
+
+WORKDIR /app
+
+USER node
+
+# Template placeholder only. Replace this command when creating a real service.
+CMD ["node", "--version"]

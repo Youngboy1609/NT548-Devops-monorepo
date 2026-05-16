@@ -2,8 +2,22 @@ version: 0.2
 
 phases:
   install:
+    runtime-versions:
+      python: 3.11
     commands:
-      - echo "TODO: install cfn-lint and taskcat."
+      - python -m pip install --upgrade pip "setuptools<81" cfn-lint taskcat checkov
+  pre_build:
+    commands:
+      - cfn-lint --non-zero-exit-code error infra/cloudformation/templates/*.yaml
+      - taskcat lint -p infra/cloudformation
+      - checkov --framework cloudformation --config-file .checkov.yml
   build:
     commands:
-      - echo "TODO: validate CloudFormation templates and run taskcat."
+      - ': "${ARTIFACT_BUCKET_NAME:?ARTIFACT_BUCKET_NAME is required for aws cloudformation package}"'
+      - aws cloudformation package --template-file infra/cloudformation/templates/main.yaml --s3-bucket "$ARTIFACT_BUCKET_NAME" --output-template-file infra/cloudformation/templates/packaged-main.yaml
+
+artifacts:
+  files:
+    - infra/cloudformation/templates/packaged-main.yaml
+    - infra/cloudformation/parameters/dev/main.example.json
+  discard-paths: no

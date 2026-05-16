@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-service
+  namespace: nt548-lab2
+  labels:
+    app.kubernetes.io/name: auth-service
+    app.kubernetes.io/part-of: nt548-lab2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: auth-service
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: auth-service
+        app.kubernetes.io/part-of: nt548-lab2
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: auth-service
+          image: nt548/auth-service:lab2-local
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 250m
+              memory: 128Mi
+          ports:
+            - name: http
+              containerPort: 3000
+          env:
+            - name: PORT
+              value: "3000"
+            - name: SERVICE_NAME
+              value: auth-service
+          envFrom:
+            - configMapRef:
+                name: nt548-service-config
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: http
+            initialDelaySeconds: 3
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 15

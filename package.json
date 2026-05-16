@@ -1,0 +1,20 @@
+{
+  "name": "nt548-devops-monorepo",
+  "version": "0.2.0",
+  "private": true,
+  "description": "NT548 DevOps monorepo for AWS infrastructure and microservices CI/CD labs.",
+  "workspaces": [
+    "services/api-gateway",
+    "services/auth-service",
+    "services/catalog-service",
+    "services/order-service"
+  ],
+  "scripts": {
+    "test": "npm test --workspaces --if-present",
+    "test:services": "npm test --workspaces --if-present",
+    "docker:build": "node scripts/build-images.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

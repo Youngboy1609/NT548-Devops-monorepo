@@ -1,15 +1,24 @@
 # Service: api-gateway
 
-## Role
+Public entry point for the Lab 2 microservices demo.
 
-Shared entry point for client requests, routing, auth forwarding, and observability hooks.
+## Endpoints
 
-## Owner suggestion
+- `GET /health`
+- `GET /ready`
+- `GET /info`
+- `GET /services`
 
-One team member should own the gateway, contracts, and ingress-related work.
+## Run
 
-## TODO
+```bash
+npm test
+node src/index.js
+docker build -t nt548/api-gateway:lab2-local .
+```
 
-- Choose the framework and runtime.
-- Describe the API surface, auth strategy, and health endpoints.
-- Fill in the Dockerfile, Jenkinsfile, Sonar config, source tree, tests, and manifests.
+## Environment
+
+- `AUTH_SERVICE_URL`
+- `CATALOG_SERVICE_URL`
+- `ORDER_SERVICE_URL`

@@ -1,0 +1,13 @@
+.git
+.github
+.terraform
+node_modules
+npm-debug.log
+.env
+*.pem
+reports
+infra
+deploy
+docs
+ci
+security

@@ -1,15 +1,57 @@
-name: terraform-placeholder
+name: Terraform CI
 
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - "infra/terraform/**"
+      - ".checkov.yml"
+      - ".github/workflows/terraform.yml"
   push:
     paths:
-      - 'infra/terraform/**'
-      - '.github/workflows/terraform.yml'
+      - "infra/terraform/**"
+      - ".checkov.yml"
+      - ".github/workflows/terraform.yml"
+
+permissions:
+  contents: read
 
 jobs:
-  terraform-plan:
+  terraform:
+    name: Terraform fmt, validate, and Checkov
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        root:
+          - infra/terraform/examples/network
+          - infra/terraform/environments/dev
+
     steps:
-      - name: Placeholder
-        run: 'echo "TODO: add terraform fmt, validate, test, and Checkov."'
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.14.9
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Checkov
+        run: python -m pip install --upgrade pip checkov
+
+      - name: Terraform fmt
+        run: terraform fmt -check -recursive infra/terraform
+
+      - name: Terraform init
+        run: terraform -chdir=${{ matrix.root }} init -backend=false -input=false
+
+      - name: Terraform validate
+        run: terraform -chdir=${{ matrix.root }} validate
+
+      - name: Checkov
+        run: checkov --config-file .checkov.yml

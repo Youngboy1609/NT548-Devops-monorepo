@@ -1,14 +1,17 @@
 # Service: catalog-service
 
-## Role
+Product catalog capability for the Lab 2 microservices demo.
 
-Manage the product catalog and the metadata required for the microservices demo.
+## Endpoints
 
-## Owner suggestion
+- `GET /health`
+- `GET /ready`
+- `GET /info`
 
-One team member should own this business service, its CRUD flow, and API documentation.
+## Run
 
-## TODO
-
-- Finalize sample data, endpoints, and the testing approach.
-- Describe the interaction with `order-service`.
+```bash
+npm test
+node src/index.js
+docker build -t nt548/catalog-service:lab2-local .
+```

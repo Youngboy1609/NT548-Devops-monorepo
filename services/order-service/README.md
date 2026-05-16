@@ -1,14 +1,17 @@
 # Service: order-service
 
-## Role
+Order processing capability for the Lab 2 microservices demo.
 
-Manage the order workflow to demonstrate communication between services.
+## Endpoints
 
-## Owner suggestion
+- `GET /health`
+- `GET /ready`
+- `GET /info`
 
-One team member should own the business flow, async options, and integration tests.
+## Run
 
-## TODO
-
-- Finalize whether the flow is event-driven or synchronous.
-- Describe dependencies on auth and catalog.
+```bash
+npm test
+node src/index.js
+docker build -t nt548/order-service:lab2-local .
+```

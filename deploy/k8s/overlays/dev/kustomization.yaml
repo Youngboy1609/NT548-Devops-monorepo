@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base
+images:
+  - name: nt548/api-gateway
+    newTag: lab2-local
+  - name: nt548/auth-service
+    newTag: lab2-local
+  - name: nt548/catalog-service
+    newTag: lab2-local
+  - name: nt548/order-service
+    newTag: lab2-local

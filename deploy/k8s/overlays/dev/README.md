@@ -1,5 +1,14 @@
-# Repository-level Kubernetes Overlay: dev
+# Dev Overlay
 
-## TODO
+Local `kind` target for Lab 2 evidence.
 
-- Add shared development patches and configuration here if the team needs them.
+```bash
+kind create cluster --name nt548-lab2
+npm run docker:build
+kind load docker-image nt548/api-gateway:lab2-local --name nt548-lab2
+kind load docker-image nt548/auth-service:lab2-local --name nt548-lab2
+kind load docker-image nt548/catalog-service:lab2-local --name nt548-lab2
+kind load docker-image nt548/order-service:lab2-local --name nt548-lab2
+kubectl apply -k deploy/k8s/overlays/dev
+kubectl -n nt548-lab2 get pods,svc
+```

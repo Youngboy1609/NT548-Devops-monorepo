@@ -1,0 +1,267 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Lab 2 CodePipeline from CodeCommit to CodeBuild and CloudFormation deploy.
+
+Parameters:
+  CodeCommitRepoName:
+    Type: String
+    Description: CodeCommit repository name mirrored from the GitHub repository.
+  BranchName:
+    Type: String
+    Default: main
+    Description: CodeCommit branch used as the pipeline source.
+  ArtifactBucketName:
+    Type: String
+    Description: Existing S3 bucket for CodePipeline artifacts and CloudFormation package uploads.
+  PipelineName:
+    Type: String
+    Default: nt548-lab2-cloudformation-pipeline
+    Description: CodePipeline name.
+  BuildProjectName:
+    Type: String
+    Default: nt548-lab2-cloudformation-build
+    Description: CodeBuild project name.
+  StackName:
+    Type: String
+    Default: nt548-lab2-cloudformation
+    Description: Target stack deployed by the pipeline.
+  AllowedSshCidr:
+    Type: String
+    Description: Admin CIDR allowed to SSH into the public EC2 instance.
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Description: Existing EC2 key pair used by the EC2 instances.
+  ImageId:
+    Type: AWS::EC2::Image::Id
+    Description: AMI ID used by the EC2 instances.
+  InstanceType:
+    Type: String
+    Default: t2.micro
+    Description: EC2 instance type.
+  ProjectName:
+    Type: String
+    Default: nt548
+    Description: Project tag value.
+  EnvironmentName:
+    Type: String
+    Default: dev
+    Description: Environment tag value.
+
+Resources:
+  CodeBuildServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: codebuild.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: codebuild-lab2-cloudformation
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                  - s3:PutObject
+                  - s3:ListBucket
+                  - s3:GetBucketLocation
+                Resource:
+                  - !Sub 'arn:${AWS::Partition}:s3:::${ArtifactBucketName}'
+                  - !Sub 'arn:${AWS::Partition}:s3:::${ArtifactBucketName}/*'
+
+  CodePipelineServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: codepipeline.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: codepipeline-lab2-cloudformation
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                  - s3:PutObject
+                  - s3:ListBucket
+                  - s3:GetBucketLocation
+                Resource:
+                  - !Sub 'arn:${AWS::Partition}:s3:::${ArtifactBucketName}'
+                  - !Sub 'arn:${AWS::Partition}:s3:::${ArtifactBucketName}/*'
+              - Effect: Allow
+                Action:
+                  - codecommit:GetBranch
+                  - codecommit:GetCommit
+                  - codecommit:UploadArchive
+                  - codecommit:GetUploadArchiveStatus
+                  - codecommit:CancelUploadArchive
+                Resource: !Sub 'arn:${AWS::Partition}:codecommit:${AWS::Region}:${AWS::AccountId}:${CodeCommitRepoName}'
+              - Effect: Allow
+                Action:
+                  - codebuild:BatchGetBuilds
+                  - codebuild:StartBuild
+                Resource: !GetAtt PipelineBuildProject.Arn
+              - Effect: Allow
+                Action:
+                  - cloudformation:CreateStack
+                  - cloudformation:DescribeStacks
+                  - cloudformation:DescribeChangeSet
+                  - cloudformation:CreateChangeSet
+                  - cloudformation:ExecuteChangeSet
+                  - cloudformation:DeleteChangeSet
+                  - cloudformation:SetStackPolicy
+                  - cloudformation:UpdateStack
+                  - cloudformation:ValidateTemplate
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - iam:PassRole
+                Resource: !GetAtt CloudFormationExecutionRole.Arn
+
+  CloudFormationExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: cloudformation.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: cloudformation-lab2-ec2-network
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ec2:*
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - cloudformation:CreateStack
+                  - cloudformation:UpdateStack
+                  - cloudformation:DeleteStack
+                  - cloudformation:DescribeStacks
+                  - cloudformation:DescribeStackEvents
+                  - cloudformation:GetTemplate
+                  - cloudformation:ValidateTemplate
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                Resource: !Sub 'arn:${AWS::Partition}:s3:::${ArtifactBucketName}/*'
+
+  PipelineBuildProject:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Name: !Ref BuildProjectName
+      ServiceRole: !GetAtt CodeBuildServiceRole.Arn
+      Artifacts:
+        Type: CODEPIPELINE
+      Source:
+        Type: CODEPIPELINE
+        BuildSpec: ci/codebuild/cloudformation-buildspec.yml
+      Environment:
+        Type: LINUX_CONTAINER
+        ComputeType: BUILD_GENERAL1_SMALL
+        Image: aws/codebuild/standard:7.0
+        EnvironmentVariables:
+          - Name: ARTIFACT_BUCKET_NAME
+            Value: !Ref ArtifactBucketName
+          - Name: AWS_DEFAULT_REGION
+            Value: !Ref AWS::Region
+
+  Lab2Pipeline:
+    Type: AWS::CodePipeline::Pipeline
+    Properties:
+      Name: !Ref PipelineName
+      RoleArn: !GetAtt CodePipelineServiceRole.Arn
+      ArtifactStore:
+        Type: S3
+        Location: !Ref ArtifactBucketName
+      Stages:
+        - Name: Source
+          Actions:
+            - Name: CodeCommitSource
+              ActionTypeId:
+                Category: Source
+                Owner: AWS
+                Provider: CodeCommit
+                Version: '1'
+              Configuration:
+                RepositoryName: !Ref CodeCommitRepoName
+                BranchName: !Ref BranchName
+                PollForSourceChanges: true
+              OutputArtifacts:
+                - Name: SourceOutput
+              RunOrder: 1
+        - Name: Build
+          Actions:
+            - Name: PackageCloudFormation
+              ActionTypeId:
+                Category: Build
+                Owner: AWS
+                Provider: CodeBuild
+                Version: '1'
+              Configuration:
+                ProjectName: !Ref PipelineBuildProject
+              InputArtifacts:
+                - Name: SourceOutput
+              OutputArtifacts:
+                - Name: BuildOutput
+              RunOrder: 1
+        - Name: Deploy
+          Actions:
+            - Name: DeployLab2Stack
+              ActionTypeId:
+                Category: Deploy
+                Owner: AWS
+                Provider: CloudFormation
+                Version: '1'
+              Configuration:
+                ActionMode: CREATE_UPDATE
+                StackName: !Ref StackName
+                Capabilities: CAPABILITY_IAM
+                RoleArn: !GetAtt CloudFormationExecutionRole.Arn
+                TemplatePath: BuildOutput::infra/cloudformation/templates/packaged-main.yaml
+                ParameterOverrides: !Sub |
+                  {
+                    "AllowedSshCidr": "${AllowedSshCidr}",
+                    "KeyName": "${KeyName}",
+                    "ImageId": "${ImageId}",
+                    "InstanceType": "${InstanceType}",
+                    "ProjectName": "${ProjectName}",
+                    "EnvironmentName": "${EnvironmentName}"
+                  }
+              InputArtifacts:
+                - Name: BuildOutput
+              RunOrder: 1
+
+Outputs:
+  PipelineName:
+    Description: Created CodePipeline name.
+    Value: !Ref Lab2Pipeline
+  BuildProjectName:
+    Description: Created CodeBuild project name.
+    Value: !Ref PipelineBuildProject
+  CloudFormationExecutionRoleArn:
+    Description: IAM role used by the deployment action.
+    Value: !GetAtt CloudFormationExecutionRole.Arn

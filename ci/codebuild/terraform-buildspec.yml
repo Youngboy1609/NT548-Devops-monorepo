@@ -1,9 +1,26 @@
 version: 0.2
 
+env:
+  variables:
+    TERRAFORM_VERSION: 1.14.9
+
 phases:
   install:
+    runtime-versions:
+      python: 3.11
     commands:
-      - echo "TODO: install terraform and checkov."
+      - python -m pip install --upgrade pip checkov
+      - |
+        if ! command -v terraform >/dev/null 2>&1; then
+          curl -fsSL "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" -o /tmp/terraform.zip
+          unzip -o /tmp/terraform.zip -d /usr/local/bin
+        fi
+      - terraform version
   build:
     commands:
-      - echo "TODO: run terraform fmt, validate, and test commands."
+      - terraform fmt -check -recursive infra/terraform
+      - terraform -chdir=infra/terraform/examples/network init -backend=false -input=false
+      - terraform -chdir=infra/terraform/examples/network validate
+      - terraform -chdir=infra/terraform/environments/dev init -backend=false -input=false
+      - terraform -chdir=infra/terraform/environments/dev validate
+      - checkov --config-file .checkov.yml

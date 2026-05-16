@@ -1,2 +1,11 @@
-// Placeholder Jenkinsfile for catalog-service.
-// TODO: add build, test, scan, and deploy stages.
+pipeline {
+  agent any
+
+  stages {
+    stage('Use Root Pipeline') {
+      steps {
+        echo 'Run the repository root Jenkinsfile for the full Lab 2 pipeline.'
+      }
+    }
+  }
+}

@@ -1,16 +1,74 @@
-name: services-placeholder
+name: Services CI
 
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - "services/**"
+      - "deploy/k8s/**"
+      - "scripts/**"
+      - "package*.json"
+      - "Jenkinsfile"
+      - ".github/workflows/services.yml"
   push:
     paths:
-      - 'services/**'
-      - 'deploy/**'
-      - '.github/workflows/services.yml'
+      - "services/**"
+      - "deploy/k8s/**"
+      - "scripts/**"
+      - "package*.json"
+      - "Jenkinsfile"
+      - ".github/workflows/services.yml"
+
+permissions:
+  contents: read
 
 jobs:
-  services-ci:
+  test:
+    name: Node.js workspace tests
     runs-on: ubuntu-latest
     steps:
-      - name: Placeholder
-        run: 'echo "TODO: add build, test, container scan, and deploy checks."'
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Test
+        run: npm test --workspaces --if-present
+
+  docker:
+    name: Docker build
+    runs-on: ubuntu-latest
+    needs: test
+    strategy:
+      fail-fast: false
+      matrix:
+        service:
+          - api-gateway
+          - auth-service
+          - catalog-service
+          - order-service
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t nt548/${{ matrix.service }}:lab2-local services/${{ matrix.service }}
+
+  kustomize:
+    name: Kubernetes manifest render
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Render dev overlay
+        run: kubectl kustomize deploy/k8s/overlays/dev

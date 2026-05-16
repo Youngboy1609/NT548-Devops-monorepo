@@ -1,14 +1,17 @@
 # Service: auth-service
 
-## Role
+Authentication boundary for the Lab 2 microservices demo.
 
-Manage identity, authentication, and basic authorization for the system.
+## Endpoints
 
-## Owner suggestion
+- `GET /health`
+- `GET /ready`
+- `GET /info`
 
-One team member should own the auth flow and secret management.
+## Run
 
-## TODO
-
-- Finalize the auth model and user store.
-- Describe the APIs, token strategy, and dependency on the gateway.
+```bash
+npm test
+node src/index.js
+docker build -t nt548/auth-service:lab2-local .
+```

@@ -1,9 +1,31 @@
 version: 0.2
 
+env:
+  variables:
+    DOCKER_REGISTRY: nt548
+    IMAGE_TAG: lab2-local
+    TRIVY_SEVERITY: HIGH,CRITICAL
+    TRIVY_EXIT_CODE: "0"
+
 phases:
   install:
+    runtime-versions:
+      nodejs: 20
     commands:
-      - echo "TODO: install service build/test dependencies."
+      - node --version
+      - npm --version
+      - |
+        if ! command -v trivy >/dev/null 2>&1; then
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+        fi
+  pre_build:
+    commands:
+      - npm ci
+      - npm test --workspaces --if-present
   build:
     commands:
-      - echo "TODO: build microservices, run tests, and publish artifacts."
+      - node scripts/build-images.js
+      - |
+        for service in api-gateway auth-service catalog-service order-service; do
+          trivy image --severity "$TRIVY_SEVERITY" --exit-code "$TRIVY_EXIT_CODE" "$DOCKER_REGISTRY/$service:$IMAGE_TAG"
+        done
