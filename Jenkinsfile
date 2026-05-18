@@ -7,6 +7,8 @@ pipeline {
     string(name: 'KUBE_CONTEXT', defaultValue: 'kind-nt548-lab2', description: 'kubectl context used for kind deployment.')
     string(name: 'TRIVY_SEVERITY', defaultValue: 'HIGH,CRITICAL', description: 'Trivy severities to report.')
     string(name: 'TRIVY_EXIT_CODE', defaultValue: '0', description: 'Set to 1 to fail Jenkins on Trivy findings.')
+    string(name: 'SONAR_HOST_URL', defaultValue: '', description: 'Optional SonarQube server URL.')
+    password(name: 'SONAR_TOKEN', defaultValue: '', description: 'Optional SonarQube token.')
     booleanParam(name: 'DEPLOY_TO_KIND', defaultValue: false, description: 'Deploy to the local kind cluster after image build.')
   }
 
@@ -17,6 +19,8 @@ pipeline {
     KUBE_CONTEXT = "${params.KUBE_CONTEXT}"
     TRIVY_SEVERITY = "${params.TRIVY_SEVERITY}"
     TRIVY_EXIT_CODE = "${params.TRIVY_EXIT_CODE}"
+    SONAR_HOST_URL = "${params.SONAR_HOST_URL}"
+    SONAR_TOKEN = "${params.SONAR_TOKEN}"
     DEPLOY_TO_KIND = "${params.DEPLOY_TO_KIND}"
   }
 
