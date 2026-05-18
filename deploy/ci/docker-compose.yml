@@ -1,0 +1,53 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: nt548-postgres
+    environment:
+      POSTGRES_USER: sonar
+      POSTGRES_PASSWORD: sonar
+      POSTGRES_DB: sonar
+    volumes:
+      - nt548-postgres-data:/var/lib/postgresql/data
+
+  sonarqube:
+    image: sonarqube:lts-community
+    container_name: nt548-sonarqube
+    depends_on:
+      - postgres
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql://postgres:5432/sonar
+      SONAR_JDBC_USERNAME: sonar
+      SONAR_JDBC_PASSWORD: sonar
+    ports:
+      - "9000:9000"
+    volumes:
+      - nt548-sonarqube-data:/opt/sonarqube/data
+      - nt548-sonarqube-extensions:/opt/sonarqube/extensions
+      - nt548-sonarqube-logs:/opt/sonarqube/logs
+
+  jenkins:
+    build:
+      context: ./jenkins
+    container_name: nt548-jenkins
+    depends_on:
+      - sonarqube
+    environment:
+      JAVA_OPTS: -Djenkins.install.runSetupWizard=false
+      JENKINS_ADMIN_ID: admin
+      JENKINS_ADMIN_PASSWORD: admin123
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    user: root
+    volumes:
+      - nt548-jenkins-home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../../..:/workspace
+      - ./jenkins/init.groovy.d:/usr/share/jenkins/ref/init.groovy.d
+
+volumes:
+  nt548-postgres-data:
+  nt548-sonarqube-data:
+  nt548-sonarqube-extensions:
+  nt548-sonarqube-logs:
+  nt548-jenkins-home:
