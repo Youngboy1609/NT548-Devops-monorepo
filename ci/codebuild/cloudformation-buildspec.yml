@@ -5,7 +5,7 @@ phases:
     runtime-versions:
       python: 3.11
     commands:
-      - python -m pip install --upgrade pip "setuptools<81" "cfn-lint==1.38.2" "taskcat==0.9.57" "checkov==2.1.269"
+      - python -m pip install --upgrade pip "setuptools<81" "packaging==21.3" "cfn-lint==1.38.2" "taskcat==0.9.57" "checkov==2.1.269"
   pre_build:
     commands:
       - cfn-lint --non-zero-exit-code error infra/cloudformation/templates/*.yaml
