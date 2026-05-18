@@ -168,6 +168,10 @@ Resources:
                   - s3:GetObject
                   - s3:GetObjectVersion
                 Resource: !Sub 'arn:${AWS::Partition}:s3:::${ArtifactBucketName}/*'
+              - Effect: Allow
+                Action:
+                  - iam:PassRole
+                Resource: '*'
 
   PipelineBuildProject:
     Type: AWS::CodeBuild::Project
